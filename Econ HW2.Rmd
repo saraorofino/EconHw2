@@ -16,7 +16,8 @@ library(tidyverse)
 library(janitor)
 
 #Read in data 
-gas <- read_csv("Gas_Data.csv")
+gas <- read_csv("Gas_Data.csv") %>% 
+  clean_names()
 
 ```
 
