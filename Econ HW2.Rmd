@@ -1,0 +1,36 @@
+---
+title: "Econ HW 2"
+author: "Sara Orofino"
+date: "4/25/2019"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+# Packages
+
+library(tidyverse)
+library(janitor)
+
+#Read in data 
+gas <- read_csv("Gas_Data.csv")
+
+```
+
+```{r}
+# Find demand curves using linear regression:
+
+
+```
+
+
+```{r}
+# Writing functions:
+
+low <- function(q){}
+```
+
+
