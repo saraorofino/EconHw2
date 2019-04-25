@@ -14,6 +14,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 library(tidyverse)
 library(janitor)
+library(RColorBrewer)
 
 #Read in data 
 gas <- read_csv("Gas_Data.csv") %>% 
@@ -24,6 +25,9 @@ gas <- read_csv("Gas_Data.csv") %>%
 ```{r}
 # Find demand curves using linear regression:
 
+demand_high <- lm(data = demand, price ~ qhigh)
+demand_low <- lm(data = demand, price ~ qlow)
+
 
 ```
 
@@ -32,6 +36,48 @@ gas <- read_csv("Gas_Data.csv") %>%
 # Writing functions:
 
 low <- function(q){}
+
+d_high <- function(x) {
+  23.391 - 0.0001297*x
+}
+
+d_high(80000)
+
+d_low <- function(x) {
+  21.991 - 0.0001355*x
+}
+
+d_high(5)
+
+
+mpc <- function(x) {
+  0.0000187*x
+}
+
+mec <- function(y) {
+  2
+}
+
+d_agg <- function(x) {
+  22.710 - 0.0000662*x
+}
+
+```
+
+
+
+``` {r}
+#graphing the functions 
+
+ggplot(data.frame(x=c(70000:200000)), aes(x=x)) + 
+  stat_function(fun=d_high, geom ="line", color = "seagreen") + 
+  stat_function(fun=d_low, geom = "line", color = "goldenrod") +
+  stat_function(fun=mpc, geom = "line") +
+  stat_function(fun=mec, geom = "line", color = "red") +
+  stat_function(fun=d_agg, geom = "line", color = "blue")+
+  labs(x = "Quantity of Gas", y = "Price")+
+  theme_bw()
+
 ```
 
 
