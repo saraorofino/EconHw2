@@ -1,6 +1,6 @@
 ---
 title: "Econ HW 2"
-author: "Sara Orofino"
+author: "Maddie Berger & Sara Orofino"
 date: "4/25/2019"
 output: pdf_document
 ---
@@ -9,7 +9,7 @@ output: pdf_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-```{r}
+```{r, include=FALSE}
 # Packages
 
 library(tidyverse)
@@ -17,10 +17,12 @@ library(janitor)
 library(RColorBrewer)
 
 #Read in data 
-gas <- read_csv("Gas_Data.csv") %>% 
-  clean_names()
+demand <- read_csv("Gas_Data.csv")
 
 ```
+
+
+1. Find Aggregate Demand  
 
 ```{r}
 # Find demand curves using linear regression:
@@ -28,43 +30,73 @@ gas <- read_csv("Gas_Data.csv") %>%
 demand_high <- lm(data = demand, price ~ qhigh)
 demand_low <- lm(data = demand, price ~ qlow)
 
+int_h <- demand_high$coefficients[1]
+q_high <- abs(demand_high$coefficients[2])
 
+int_l <- demand_low$coefficients[1]
+q_low <- abs(demand_low$coefficients[2])
 ```
 
+High income demand curve:  
+$Price = (`r int_h`) - (`r q_high`)Q$ 
+
+Low income demand curve:    
+$Price = (`r int_l`) - (`r q_low`)Q$ 
 
 ```{r}
-# Writing functions:
+# Writing functions for demand:
 
-low <- function(q){}
-
-d_high <- function(x) {
-  23.391 - 0.0001297*x
+d_high <- function(q) {
+  int_h - (q_high*q)
 }
 
-d_high(80000)
-
-d_low <- function(x) {
-  21.991 - 0.0001355*x
+d_low <- function(q) {
+  int_l - (q_low*q)
 }
 
-d_high(5)
+# Demand as a function of quantity add together for aggregate demand:
 
+d_highq <- function(p){
+  (int_h/q_high) - (p/q_high)
+}
 
-mpc <- function(x) {
-  0.0000187*x
+d_lowq <- function(p) {
+  (int_l/q_low) - (p/q_low)
+}
+
+q_sq <- d_highq(5) + d_lowq(5)
+
+# Find the slope and intercept for the aggregate demand:
+agg_int <- (int_h/q_high) + (int_l/q_low)
+agg_slope <- (1/q_high) + (1/q_low)
+
+# Write aggregate demand function as function of price:
+d_aggq <- function(p) {
+  agg_int - agg_slope*p
+}
+
+# Change to a function of quantity:
+d_agg <- function(q) {
+  (agg_int/agg_slope) - (1/agg_slope)
+}
+
+# Find mpc by plugging in 5 for the AD curve:
+
+mpc_slope <- (5/q_sq)
+
+mpc <- function(q) {
+  mpc_slope*q
 }
 
 mec <- function(y) {
   2
 }
 
-d_agg <- function(x) {
-  22.710 - 0.0000662*x
-}
+
 
 ```
 
-
+Aggregate demand:        
 
 ``` {r}
 #graphing the functions 
