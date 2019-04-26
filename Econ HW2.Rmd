@@ -108,6 +108,8 @@ ggplot(data.frame(x=c(70000:200000)), aes(x=x)) +
   stat_function(fun=mec, geom = "line", color = "red") +
   stat_function(fun=d_agg, geom = "line", color = "blue")+
   labs(x = "Quantity of Gas", y = "Price")+
+  scale_x_continuous(limits =c(0,500000), expand = c(0,0))+
+  scale_y_continuous(limits=c(0,25), expand=c(0,0))+
   theme_bw()
 
 ```
