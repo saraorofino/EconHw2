@@ -22,8 +22,8 @@ demand <- read_csv("Gas_Data.csv")
 ```
 
 
-1. Find Aggregate Demand  
-
+###1. Aggregate Demand, Supply, and Surplus 
+  
 ```{r}
 # Find demand curves using linear regression:
 
@@ -37,11 +37,13 @@ int_l <- demand_low$coefficients[1]
 q_low <- abs(demand_low$coefficients[2])
 ```
 
-High income demand curve:  
+**High income demand curve:**  
 $Price = (`r int_h`) - (`r q_high`)Q$ 
 
-Low income demand curve:    
+**Low income demand curve:**    
 $Price = (`r int_l`) - (`r q_low`)Q$ 
+
+####a. Find Aggregate Demand   
 
 ```{r}
 # Writing functions for demand:
@@ -64,11 +66,10 @@ d_lowq <- function(p) {
   (int_l/q_low) - (p/q_low)
 }
 
-q_sq <- d_highq(5) + d_lowq(5)
 
 # Find the slope and intercept for the aggregate demand:
 agg_int <- (int_h/q_high) + (int_l/q_low)
-agg_slope <- (1/q_high) + (1/q_low)
+agg_slope <- abs((-1/q_high) + (-1/q_low))
 
 # Write aggregate demand function as function of price:
 d_aggq <- function(p) {
@@ -77,8 +78,12 @@ d_aggq <- function(p) {
 
 # Change to a function of quantity:
 d_agg <- function(q) {
-  (agg_int/agg_slope) - (1/agg_slope)
+  (agg_int/agg_slope) - ((1/agg_slope)*q)
 }
+
+# Quantity at equilibrium price of 5: 
+q_sq <- d_highq(5) + d_lowq(5)
+
 
 # Find mpc by plugging in 5 for the AD curve:
 
@@ -93,12 +98,17 @@ mec <- function(y) {
 }
 
 
-
 ```
 
-Aggregate demand:        
+**Aggregate demand curve:**          
+$Price = (`r agg_int/agg_slope`) - (`r 1/agg_slope`)Q$   
 
-``` {r}
+####b. Find the Supply Curve  
+
+**Supply curve:**    
+$Price = (`r mpc_slope`)*Q$   
+
+```{r}
 #graphing the functions 
 
 ggplot(data.frame(x=c(70000:200000)), aes(x=x)) + 
@@ -114,4 +124,75 @@ ggplot(data.frame(x=c(70000:200000)), aes(x=x)) +
 
 ```
 
+
+####c. Surplus under the Status Quo  
+
+```{r}
+
+######## Consumer Surplus using integration 
+
+# First find quantity where agg demand starts - quantity where price is equal to intercept of d_low
+q_cshigh <- d_highq(int_l)
+
+# Integrate to find area under curve for the high demand through quantity where agg starts 
+area_high <- integrate(d_high, lower = 0, upper = q_cshigh)
+
+# Integrate agg demand from quantity it starts through the equilibrium quantity 
+area_agg <- integrate(d_agg, lower = q_cshigh, upper = q_sq)
+
+# Find total cost at equilibrium (price*quantity)
+cost <- 5*q_sq
+
+# Add integrals and subtract cost  
+cs_total <- (area_high$value + area_agg$value) - cost
+
+
+######### Producer Surplus using integration
+
+# Integrate MPC find the area under curve through equilibrium quantity 
+mpc_area <- integrate(mpc, lower = 0, upper = q_sq)
+
+# Find PS by subtracting area from cost 
+ps_total <- cost - mpc_area$value
+```
+
+
+**Consumers:**    
+$Consumer Surplus = (`r cs_total`)$
+
+**Producers:**     
+$Producer Surplus = (`r ps_total`)$  
+
+####d. Environmental Cost under the Status Quo  
+
+```{r}
+
+tec <- 2*q_sq
+  
+```
+
+
+$Environmental Cost = (`r tec`)$  
+
+###2. Division of Consumer Benefit  
+
+```{r}
+# CS for high demand - area under curve from 0 to quantity at price 5 - (quantity*5)
+q_high_sq <- d_highq(5)
+fullarea_high <- integrate(d_high, lower = 0, upper = q_high_sq)
+cost_high <- q_high_sq * 5
+cs_high <- fullarea_high$value - cost_high
+
+# CS for low demand - area under curve from 0 to quantity at price 5 - (quantity*5) 
+q_low_sq <- d_lowq(5)
+fullarea_low <- integrate(d_low, lower = 0, upper = q_low_sq)
+cost_low <- q_low_sq * 5
+cs_low <- fullarea_low$value - cost_low
+```
+
+**Consumer Surplus for High Demand**  
+$CS_(High) = (`r cs_high`)$  
+
+**Consumer Surplus for Low Demand**  
+$CS_(Low) = (`r cs_low`)$  
 
