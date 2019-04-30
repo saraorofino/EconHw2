@@ -530,8 +530,22 @@ env_cost_tax2 <- q_tax2.0*2
 ## put all the environmental damages to compare 
 
 env_damage_table <- as.data.frame(rbind(tec,env_cost_tax2, env_cost_ev)) 
+
+tax2_reduction = ((tec-env_cost_tax2)/tec)*100
+
+ev_reduction = ((tec-env_cost_ev)/tec)*100
+
+env_damage_table$Reduction <- c(0,tax2_reduction, ev_reduction)
   
-colnames(env_damage_table) <- c("Environmental Cost (USD)")
+  
+colnames(env_damage_table) <- c("Environmental Cost (USD)", "Reduction (%)")
 rownames(env_damage_table) <- c("Baseline", "$2.00 Gas Tax", "High EV Demand")
+
+#make it nice
+
+env_damage_final <- kable(env_damage_table, digits = 3) %>% 
+  kable_styling(bootstrap_options = c("striped", "bordered", "condensed"), full_width = F)
+
+env_damage_final
 ```
 
