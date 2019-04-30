@@ -1,11 +1,12 @@
 ---
-title: "Econ HW 2"
+title: "Technical Appendix"
+subtitle: "Econ HW 2"
 author: "Maddie Berger & Sara Orofino"
-date: "4/25/2019"
+date: "5/1/2019"
 output:
-  html_document:
-    df_print: paged
   pdf_document: default
+  latex_engine: xelatex
+mainfont: Times New Roman
 ---
 
 ```{r setup, include=FALSE}
@@ -41,10 +42,10 @@ int_l <- demand_low$coefficients[1]
 q_low <- abs(demand_low$coefficients[2])
 ```
 
-**High income demand curve:**  
+High income demand curve:  
 $Price = `r int_h` - (`r q_high`)Q$ 
 
-**Low income demand curve:**    
+Low income demand curve:    
 $Price = `r int_l` - (`r q_low`)Q$ 
 
 ####a. Find aggregate demand   
@@ -103,12 +104,12 @@ mec <- function(y) {
 
 ```
 
-**Aggregate demand curve:**          
+Aggregate demand curve:          
 $Price = `r agg_int/agg_slope` - (`r 1/agg_slope`)Q$   
 
 ####b. Find the supply curve  
 
-**Supply curve:**    
+Supply curve:   
 $Price = (`r mpc_slope`)*Q$   
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
@@ -161,10 +162,10 @@ ps_total_mil <- ps_total/1000000
 ```
 
 
-**Consumers:**    
+Consumers:      
 $CS = `r cs_total`~Million~USD$ 
 
-**Producers:**     
+Producers:       
 $PS = `r ps_total_mil`~Million~USD$ 
 
 ####d. Environmental Cost under the Status Quo  
@@ -196,10 +197,10 @@ cs_low <- fullarea_low$value - cost_low
 cs_low_mil <- cs_low/1000000
 ```
 
-**Consumer Surplus for High Income**  
+Consumer Surplus for High Income:    
 $CS_{High} = `r cs_high_mil`~Million~USD$ 
 
-**Consumer Surplus for Low Income**  
+Consumer Surplus for Low Income:    
 $CS_{Low} = `r cs_low_mil`~Million~USD$ 
 
 ###3. Implement a Gas Tax of $0.50/gallon  
@@ -292,6 +293,7 @@ tax0.5_rev <- (q_tax0.5 * 0.50)/1000000
 
 $Tax~Revenue = `r tax0.5_rev`~Million~USD$     
 
+\newpage 
 ###4. Tax Revenues for Infrastructure Repairs
 
 ```{r, include=FALSE}
@@ -329,6 +331,7 @@ rev_tax <- amt_tax * q_tax
 
 ```
 
+
 ####a. Surplus to high income consumers
 
 ```{r, echo=FALSE}
@@ -359,12 +362,12 @@ cs_high_table <- as.data.frame(cbind(amt_tax, cs_high_tax)) %>%
   mutate(cs_high_mil = cs_high_tax/1000000) %>% 
   select(amt_tax, cs_high_mil)
 
-kable(cs_high_table, col.names = c("Tax Amount", "High Income Consumer Welfare (Million USD)"), caption = "Table 1. High Income Consumer Welfare at Variable Gas Tax Amounts", digits = 4) %>% 
-  kable_styling(bootstrap_options = c("striped", "condensed", "bordered"), full_width = FALSE)
+kable(cs_high_table, "latex", booktabs = T, col.names = c("Tax Amount", "High Income Consumer Welfare (Million USD)"), caption = "High Income Consumer Welfare at Variable Gas Tax Amounts", digits = 4) %>% 
+  kable_styling(latex_options = c("striped", "bordered", "hold_position"))
 
 ```
 
-
+\newpage
 ####b. Surplus to low income consumers
 
 ```{r, echo=FALSE}
@@ -395,12 +398,12 @@ cs_low_table <- as.data.frame(cbind(amt_tax, cs_low_tax)) %>%
   mutate(cs_low_mil = cs_low_tax/1000000) %>% 
   select(amt_tax, cs_low_mil)
 
-kable(cs_low_table, col.names = c("Tax Amount", "Low Income Consumer Welfare (Million USD)"), caption = "Table 2. Low Income Consumer Welfare at Variable Gas Tax Amounts", digits = 4) %>% 
-  kable_styling(bootstrap_options = c("striped", "condensed", "bordered"), full_width = FALSE)
+kable(cs_low_table, "latex", booktabs = T, col.names = c("Tax Amount", "Low Income Consumer Welfare (Million USD)"), caption = "Low Income Consumer Welfare at Variable Gas Tax Amounts", digits = 4) %>%
+  kable_styling(latex_options = c("striped", "bordered", "HOLD_position"))
 
 ```
 
-
+\newpage
 ####c. Surplus to producers  
 
 ```{r, echo=FALSE}
@@ -426,8 +429,8 @@ ps_table <- as.data.frame(cbind(amt_tax, ps_tax)) %>%
   mutate(ps_mil = ps_tax/1000000) %>% 
   select(amt_tax, ps_mil)
 
-kable(ps_table, col.names = c("Tax Amount", "Producer Welfare (Million USD)"), caption = "Table 3. Producer Welfare at Variable Gas Tax Amounts", digits = 4) %>% 
-  kable_styling(bootstrap_options = c("striped", "condensed", "bordered"), full_width = FALSE)
+kable(ps_table, "latex", booktabs = T, col.names = c("Tax Amount", "Producer Welfare (Million USD)"), caption = "Producer Welfare at Variable Gas Tax Amounts", digits = 4) %>% 
+  kable_styling(latex_options = c("striped", "bordered", "HOLD_position"))
 
 
 ```
@@ -465,8 +468,8 @@ tax_table <- tax_scenarios %>%
   select(amt_tax, rev_taxmil,cs_low_change, cs_high_change, ps_change)
   
 
-taxtable_final <- kable(tax_table, col.names = c("Tax Amount (USD)", "Tax Revenue (Million USD)", "Welfare Change Low Income (%)", "Welfare Change High Income (%)", "Welfare Change Producers (%)"), caption = "Figure 4. Comparison of Revenue and Welfare Potential with Variable Gas Tax Amounts", digits = 4) %>% 
-  kable_styling(bootstrap_options = c("striped", "bordered", "condensed"), full_width = F)
+taxtable_final <- kable(tax_table, "latex", booktabs = T, col.names = c("Tax Amount (USD)", "Tax Revenue (Million USD)", "Welfare Change Low Income (%)", "Welfare Change High Income (%)", "Welfare Change Producers (%)"), caption = "Comparison of Revenue and Welfare Potential with Variable Gas Tax Amounts", digits = 4) %>% 
+  kable_styling(latex_options = c("striped", "bordered", "HOLD_position", "scale_down"), full_width = F)
 
 taxtable_final
 
@@ -591,8 +594,8 @@ rownames(env_damage_table) <- c("Baseline", "$2.00 Gas Tax", "High EV Demand")
 
 #make it nice
 
-env_damage_final <- kable(env_damage_table, caption = "Table 5. Environmental Cost Comparison", digits = 4) %>% 
-  kable_styling(bootstrap_options = c("striped", "bordered", "condensed"), full_width = F)
+env_damage_final <- kable(env_damage_table, "latex", booktabs = T, caption = "Environmental Cost Comparison", digits = 4) %>% 
+  kable_styling(latex_options = c("striped", "bordered", "hold_position"))
 
 env_damage_final
 ```
