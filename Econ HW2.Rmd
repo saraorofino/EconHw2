@@ -430,7 +430,7 @@ tax_table <- tax_scenarios %>%
 
 
 ###5. Electric cars lower demand for each group by one half (vertically)
-```{r}
+```{r, include=FALSE}
 ######generic functions used for this problem 
 
 int_h_2 <- int_h/2 #divide intercepts by 2 to shift demand curves vertically by 1/2
@@ -472,7 +472,7 @@ d_agg_2p <- function(q) {
 ```
 
 ####a. & b. Gas consumption by High/Low income Consumers
-```{r}
+```{r, include=FALSE}
 #set equal to MPC curve to find new quantities 
 
 q_ev_low <- int_l_2/(mpc_slope+q_low)
@@ -486,7 +486,7 @@ q_ev_agg <- q_ev_high + q_ev_high
 
 ####c. New price of gasoline with higher EV use and lower gas demand
 
-```{r}
+```{r, include=FALSE}
 #plug agg price into demand agg function to find the price 
 
 d_agg_2p(q_ev_agg)
@@ -499,13 +499,13 @@ d_low_2(q_ev_low)
 
 ####d. Environmental Cost 
 
-```{r}
+```{r, include=FALSE}
 env_cost_ev <- q_ev_agg*2
 ```
 
 ###6. Compare a 2.00 per gal tax to the influence of EV
 
-```{r}
+```{r, include=FALSE}
 # slope of MSC with a 2.00 tax
 mpc_tax2.0 <- function(q) {
   2.0 + mpc_slope*q
