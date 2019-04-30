@@ -404,7 +404,7 @@ ps_tax <- cost_tax - prod_areas
 
 # Bind the baseline to the amount of tax, CS high, CS low, and PS into a dataframe:
 
-tax_scenarios <- as.data.frame(cbind(amt_tax, cs_high_tax, cs_low_tax, ps_tax))
+tax_scenarios <- as.data.frame(cbind(amt_tax, cs_high_tax, cs_low_tax, ps_tax, rev_tax))
 
 
 # Graph them:
@@ -423,7 +423,8 @@ tax_table <- tax_scenarios %>%
   mutate(cs_high_change = (cs_high_tax-cs_high)/cs_high) %>% 
   mutate(cs_low_change = (cs_low_tax-cs_low)/cs_low) %>% 
   mutate(ps_change = (ps_tax-ps_total)/ps_total) %>% 
-  select(amt_tax, cs_low_change, cs_high_change, ps_change)
+  select(amt_tax, rev_tax,cs_low_change, cs_high_change, ps_change) %>% 
+  filter(amt_tax == 0.25 | amt_tax == 1.75 | amt_tax == 3.25 | amt_tax == 5.00)
   
 
 ```
@@ -517,5 +518,12 @@ q_tax2.0 <- ((agg_int/agg_slope)-2.0)/((1/agg_slope)+mpc_slope)
 #environmental damage
 
 env_cost_tax2 <- q_tax2.0*2
+
+## put all the environmental damages to compare 
+
+env_damage_table <- as.data.frame(rbind(tec,env_cost_tax2, env_cost_ev)) 
+  
+colnames(env_damage_table) <- c("Environmental Cost (USD)")
+rownames(env_damage_table) <- c("Baseline", "$2.00 Gas Tax", "High EV Demand")
 ```
 
