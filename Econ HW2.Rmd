@@ -326,7 +326,7 @@ rev_tax <- amt_tax * q_tax
 
 ####a. Surplus to high income consumers
 
-```{r, include=FALSE}
+```{r, echo=FALSE}
 # CShigh = [(area under curve from 0 to quantity with tax) - (price with tax *quantity with tax)] + Revenue for high income consumers
 
 q_high_tax <- d_highq(p_tax)
@@ -348,12 +348,19 @@ cost_high_tax <- q_high_tax * p_tax
 
 # Calculate CS:
 cs_high_tax <- (high_areas - cost_high_tax) + rev_highcon
+
+#Output information in table:
+cs_high_table <- as.data.frame(cbind(amt_tax, cs_high_tax)) 
+
+kable(cs_high_table, col.names = c("Tax Amount", "High Income Consumer Welfare"), digits = 2) %>% 
+  kable_styling(bootstrap_options = c("striped", "condensed", "bordered"), full_width = FALSE)
+
 ```
 
 
 ####b. Surplus to low income consumers
 
-```{r, include=FALSE}
+```{r, echo=FALSE}
 # CSlow = [(area under curve from 0 to quantity with tax) - (price with tax * quantity with tax)] + Rev for low income consumers - TEC with tax
 
 q_low_tax <- d_lowq(p_tax)
@@ -376,12 +383,18 @@ cost_low_tax <- q_low_tax * p_tax
 # Calculate CS:
 cs_low_tax <- (low_areas - cost_low_tax) + rev_lowcon - tec_tax
 
+#Output information in table:
+cs_low_table <- as.data.frame(cbind(amt_tax, cs_low_tax)) 
+
+kable(cs_low_table, col.names = c("Tax Amount", "Low Income Consumer Welfare"), digits = 2) %>% 
+  kable_styling(bootstrap_options = c("striped", "condensed", "bordered"), full_width = FALSE)
+
 ```
 
 
 ####c. Surplus to producers  
 
-```{r, include=FALSE}
+```{r, echo=FALSE}
 # PS = [(price with tax * quantity with tax) - area under curve of MPC+tax through quantity with tax]
 
 # Define the integration function:
@@ -398,6 +411,12 @@ cost_tax <- q_tax * p_mpc_tax
 
 #Calculate PS:
 ps_tax <- cost_tax - prod_areas
+
+#Output information in table:
+ps_table <- as.data.frame(cbind(amt_tax, ps_tax)) 
+
+kable(ps_table, col.names = c("Tax Amount", "Producer Welfare")) %>% 
+  kable_styling(bootstrap_options = c("striped", "condensed", "bordered"), full_width = FALSE)
 
 
 ```

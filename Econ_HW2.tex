@@ -1,0 +1,373 @@
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\hypersetup{unicode=true,
+            pdftitle={Econ HW 2},
+            pdfauthor={Maddie Berger \& Sara Orofino},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\newcommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+
+  \title{Econ HW 2}
+    \pretitle{\vspace{\droptitle}\centering\huge}
+  \posttitle{\par}
+    \author{Maddie Berger \& Sara Orofino}
+    \preauthor{\centering\large\emph}
+  \postauthor{\par}
+      \predate{\centering\large\emph}
+  \postdate{\par}
+    \date{4/25/2019}
+
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{colortbl}
+\usepackage{pdflscape}
+\usepackage{tabu}
+\usepackage{threeparttable}
+\usepackage{threeparttablex}
+\usepackage[normalem]{ulem}
+\usepackage{makecell}
+\usepackage{xcolor}
+
+\begin{document}
+\maketitle
+
+\subsubsection{1. Aggregate Demand, Supply, and
+Surplus}\label{aggregate-demand-supply-and-surplus}
+
+\textbf{High income demand curve:}\\
+\(Price = (23.3914418) - (1.2966378\times 10^{-4})Q\)
+
+\textbf{Low income demand curve:}\\
+\(Price = (21.9908534) - (1.3551741\times 10^{-4})Q\)
+
+\paragraph{a. Find aggregate demand}\label{a.-find-aggregate-demand}
+
+\textbf{Aggregate demand curve:}\\
+\(Price = (22.7066059) - (6.6262994\times 10^{-5})Q\)
+
+\paragraph{b. Find the supply curve}\label{b.-find-the-supply-curve}
+
+\textbf{Supply curve:}\\
+\(Price = (1.8711376\times 10^{-5})*Q\)
+
+\includegraphics{Econ_HW2_files/figure-latex/unnamed-chunk-4-1.pdf}
+
+\paragraph{c. Surplus under the status
+quo}\label{c.-surplus-under-the-status-quo}
+
+\textbf{Consumers:}\\
+\(CS = (2.3694528\times 10^{6})\)
+
+\textbf{Producers:}\\
+\(PS = (6.6804279\times 10^{5})\)
+
+\paragraph{d. Environmental Cost under the Status
+Quo}\label{d.-environmental-cost-under-the-status-quo}
+
+\(Environmental~Cost = (5.3443423\times 10^{5})\)
+
+\subsubsection{2. Division of Consumer
+Benefit}\label{division-of-consumer-benefit}
+
+\textbf{Consumer Surplus for High Income}\\
+\(CS_{High} = (1.3043162\times 10^{6})\)
+
+\textbf{Consumer Surplus for Low Income}\\
+\(CS_{Low} = (1.0651366\times 10^{6})\)
+
+\subsubsection{3. Implement a Gas Tax of
+\$0.50/gallon}\label{implement-a-gas-tax-of-0.50gallon}
+
+\paragraph{a. New quantity of
+gasoline}\label{a.-new-quantity-of-gasoline}
+
+\(Q_{Tax} = (2.6133299\times 10^{5})\)
+
+\paragraph{b. New price of gasoline}\label{b.-new-price-of-gasoline}
+
+\(P_{Tax} = (5.3898999)\)
+
+\paragraph{c. Surplus to high income
+consumers}\label{c.-surplus-to-high-income-consumers}
+
+\(CS_{High} = (1.2495992\times 10^{6})\)
+
+\paragraph{d. Surplus to low income
+consumers}\label{d.-surplus-to-low-income-consumers}
+
+\(CS_{Low} = (1.0168127\times 10^{6})\)
+
+\paragraph{e. Producer surplus}\label{e.-producer-surplus}
+
+\(PS_{Tax} = (6.3894607\times 10^{5})\)
+
+\paragraph{f. Environmental damage}\label{f.-environmental-damage}
+
+\(TEC_{Tax} = (5.2266597\times 10^{5})\)
+
+\paragraph{g. Tax revenue}\label{g.-tax-revenue}
+
+\(Tax~Revenue = (1.3066649\times 10^{5})\)
+
+\subsubsection{4. Tax Revenues for Infrastructure
+Repairs}\label{tax-revenues-for-infrastructure-repairs}
+
+\paragraph{a. Surplus to high income
+consumers}\label{a.-surplus-to-high-income-consumers}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{r|r}
+\hline
+Tax Amount & High Income Consumer Welfare\\
+\hline
+0.25 & 1311895\\
+\hline
+0.50 & 1319015\\
+\hline
+0.75 & 1325677\\
+\hline
+1.00 & 1331880\\
+\hline
+1.25 & 1337625\\
+\hline
+1.50 & 1342910\\
+\hline
+1.75 & 1347737\\
+\hline
+2.00 & 1352106\\
+\hline
+2.25 & 1356016\\
+\hline
+2.50 & 1359467\\
+\hline
+2.75 & 1362459\\
+\hline
+3.00 & 1364993\\
+\hline
+3.25 & 1367068\\
+\hline
+3.50 & 1368685\\
+\hline
+3.75 & 1369843\\
+\hline
+4.00 & 1370542\\
+\hline
+4.25 & 1370783\\
+\hline
+4.50 & 1370565\\
+\hline
+4.75 & 1369888\\
+\hline
+5.00 & 1368753\\
+\hline
+\end{tabular}
+\end{table}
+
+\paragraph{b. Surplus to low income
+consumers}\label{b.-surplus-to-low-income-consumers}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{r|r}
+\hline
+Tax Amount & Low Income Consumer Welfare\\
+\hline
+0.25 & 543269.1\\
+\hline
+0.50 & 555397.0\\
+\hline
+0.75 & 567086.1\\
+\hline
+1.00 & 578336.4\\
+\hline
+1.25 & 589147.8\\
+\hline
+1.50 & 599520.4\\
+\hline
+1.75 & 609454.2\\
+\hline
+2.00 & 618949.1\\
+\hline
+2.25 & 628005.2\\
+\hline
+2.50 & 636622.4\\
+\hline
+2.75 & 644800.9\\
+\hline
+3.00 & 652540.5\\
+\hline
+3.25 & 659841.2\\
+\hline
+3.50 & 666703.2\\
+\hline
+3.75 & 673126.3\\
+\hline
+4.00 & 679110.5\\
+\hline
+4.25 & 684656.0\\
+\hline
+4.50 & 689762.6\\
+\hline
+4.75 & 694430.3\\
+\hline
+5.00 & 698659.3\\
+\hline
+\end{tabular}
+\end{table}
+
+\paragraph{c. Surplus to producers}\label{c.-surplus-to-producers}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{r|r}
+\hline
+Tax Amount & Producer Welfare\\
+\hline
+0.25 & 653413.4\\
+\hline
+0.50 & 638946.1\\
+\hline
+0.75 & 624640.7\\
+\hline
+1.00 & 610497.2\\
+\hline
+1.25 & 596515.7\\
+\hline
+1.50 & 582696.2\\
+\hline
+1.75 & 569038.6\\
+\hline
+2.00 & 555543.0\\
+\hline
+2.25 & 542209.3\\
+\hline
+2.50 & 529037.6\\
+\hline
+2.75 & 516027.9\\
+\hline
+3.00 & 503180.1\\
+\hline
+3.25 & 490494.3\\
+\hline
+3.50 & 477970.5\\
+\hline
+3.75 & 465608.6\\
+\hline
+4.00 & 453408.7\\
+\hline
+4.25 & 441370.7\\
+\hline
+4.50 & 429494.7\\
+\hline
+4.75 & 417780.7\\
+\hline
+5.00 & 406228.6\\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{r|r|r|r|r}
+\hline
+Tax Amount (USD) & Tax Revenue (USD) & Welfare Change Low Income (\%) & Welfare Change High Income (\%) & Welfare Change Producers (\%)\\
+\hline
+0.25 & 66068.76 & -0.490 & 0.006 & -0.022\\
+\hline
+1.75 & 431589.67 & -0.428 & 0.033 & -0.148\\
+\hline
+3.25 & 744153.44 & -0.381 & 0.048 & -0.266\\
+\hline
+5.00 & 1041879.21 & -0.344 & 0.049 & -0.392\\
+\hline
+\end{tabular}
+\end{table}
+
+\subsubsection{5. Electric cars lower demand for each group by one half
+(vertically)}\label{electric-cars-lower-demand-for-each-group-by-one-half-vertically}
+
+\paragraph{a. \& b. Gas consumption by High/Low income
+Consumers}\label{a.-b.-gas-consumption-by-highlow-income-consumers}
+
+\paragraph{c. New price of gasoline with higher EV use and lower gas
+demand}\label{c.-new-price-of-gasoline-with-higher-ev-use-and-lower-gas-demand}
+
+\paragraph{d. Environmental Cost}\label{d.-environmental-cost}
+
+\subsubsection{6. Compare a 2.00 per gal tax to the influence of
+EV}\label{compare-a-2.00-per-gal-tax-to-the-influence-of-ev}
+
+
+\end{document}
