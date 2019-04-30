@@ -3,6 +3,8 @@ title: "Econ HW 2"
 author: "Maddie Berger & Sara Orofino"
 date: "4/25/2019"
 output:
+  html_document:
+    df_print: paged
   pdf_document: default
 ---
 
@@ -40,10 +42,10 @@ q_low <- abs(demand_low$coefficients[2])
 ```
 
 **High income demand curve:**  
-$Price = (`r int_h`) - (`r q_high`)Q$ 
+$Price = `r int_h` - (`r q_high`)Q$ 
 
 **Low income demand curve:**    
-$Price = (`r int_l`) - (`r q_low`)Q$ 
+$Price = `r int_l` - (`r q_low`)Q$ 
 
 ####a. Find aggregate demand   
 
@@ -102,7 +104,7 @@ mec <- function(y) {
 ```
 
 **Aggregate demand curve:**          
-$Price = (`r agg_int/agg_slope`) - (`r 1/agg_slope`)Q$   
+$Price = `r agg_int/agg_slope` - (`r 1/agg_slope`)Q$   
 
 ####b. Find the supply curve  
 
@@ -145,7 +147,7 @@ area_agg <- integrate(d_agg, lower = q_cshigh, upper = q_sq)
 cost <- 5*q_sq
 
 # Add integrals and subtract cost  
-cs_total <- (area_high$value + area_agg$value) - cost
+cs_total <- ((area_high$value + area_agg$value) - cost)/1000000
 
 
 ######### Producer Surplus using integration
@@ -155,25 +157,26 @@ mpc_area <- integrate(mpc, lower = 0, upper = q_sq)
 
 # Find PS by subtracting area from cost 
 ps_total <- cost - mpc_area$value
+ps_total_mil <- ps_total/1000000
 ```
 
 
 **Consumers:**    
-$CS = (`r cs_total`)$
+$CS = `r cs_total`~Million~USD$ 
 
 **Producers:**     
-$PS = (`r ps_total`)$  
+$PS = `r ps_total_mil`~Million~USD$ 
 
 ####d. Environmental Cost under the Status Quo  
 
 ```{r, include=FALSE}
 
-tec <- 2*q_sq
+tec <- (2*q_sq)/1000000
   
 ```
 
 
-$Environmental~Cost = (`r tec`)$  
+$Environmental~Cost = `r tec`~Million~USD$ 
 
 ###2. Division of Consumer Benefit  
 
@@ -183,19 +186,21 @@ q_high_sq <- d_highq(5)
 fullarea_high <- integrate(d_high, lower = 0, upper = q_high_sq)
 cost_high <- q_high_sq * 5
 cs_high <- fullarea_high$value - cost_high
+cs_high_mil <- cs_high/1000000
 
 # CS for low demand - area under curve from 0 to quantity at price 5 - (quantity*5) 
 q_low_sq <- d_lowq(5)
 fullarea_low <- integrate(d_low, lower = 0, upper = q_low_sq)
 cost_low <- q_low_sq * 5
 cs_low <- fullarea_low$value - cost_low
+cs_low_mil <- cs_low/1000000
 ```
 
 **Consumer Surplus for High Income**  
-$CS_{High} = (`r cs_high`)$  
+$CS_{High} = `r cs_high_mil`~Million~USD$ 
 
 **Consumer Surplus for Low Income**  
-$CS_{Low} = (`r cs_low`)$  
+$CS_{Low} = `r cs_low_mil`~Million~USD$ 
 
 ###3. Implement a Gas Tax of $0.50/gallon  
 
@@ -215,7 +220,7 @@ mpc_tax0.5 <- function(q) {
 q_tax0.5 <- ((agg_int/agg_slope)-0.50)/((1/agg_slope)+mpc_slope)
 ```
 
-$Q_{Tax} = (`r q_tax0.5`)$  
+$Q_{Tax} = `r q_tax0.5`$  
 
 ####b. New price of gasoline  
 
@@ -225,7 +230,7 @@ $Q_{Tax} = (`r q_tax0.5`)$
 p_tax0.5 <- d_agg(q_tax0.5)
 ```
 
-$P_{Tax} = (`r p_tax0.5`)$  
+$P_{Tax} = `r p_tax0.5`$  
 
 ####c. Surplus to high income consumers  
 
@@ -235,11 +240,11 @@ $P_{Tax} = (`r p_tax0.5`)$
 q_high_tax0.5 <- d_highq(p_tax0.5)
 area_high_tax0.5 <- integrate(d_high, lower = 0, upper = q_high_tax0.5)
 cost_high_tax0.5 <- q_high_tax0.5 * p_tax0.5
-cs_high_tax0.5 <- area_high_tax0.5$value - cost_high_tax0.5
+cs_high_tax0.5 <- (area_high_tax0.5$value - cost_high_tax0.5)/1000000
 
 ```
 
-$CS_{High} = (`r cs_high_tax0.5`)$  
+$CS_{High} = `r cs_high_tax0.5`~Million~USD$   
 
 ####d. Surplus to low income consumers  
 
@@ -249,10 +254,10 @@ $CS_{High} = (`r cs_high_tax0.5`)$
 q_low_tax0.5 <- d_lowq(p_tax0.5)
 area_low_tax0.5 <- integrate(d_low, lower = 0, upper = q_low_tax0.5)
 cost_low_tax0.5 <- q_low_tax0.5 * p_tax0.5
-cs_low_tax0.5 <- area_low_tax0.5$value - cost_low_tax0.5
+cs_low_tax0.5 <- (area_low_tax0.5$value - cost_low_tax0.5)/1000000
 ```
 
-$CS_{Low} = (`r cs_low_tax0.5`)$  
+$CS_{Low} = `r cs_low_tax0.5`~Million~USD$     
 
 ####e. Producer surplus 
 
@@ -261,19 +266,19 @@ $CS_{Low} = (`r cs_low_tax0.5`)$
 # PS = (new quantity*price at MPC) - area under curve through new quantity 
 mpc_area_tax0.5 <- integrate(mpc_tax0.5, lower = 0, upper = q_tax0.5)
 cost_tax0.5 <- q_tax0.5 * p_tax0.5 
-ps_tax0.5 <- cost_tax0.5 - mpc_area_tax0.5$value
+ps_tax0.5 <- (cost_tax0.5 - mpc_area_tax0.5$value)/1000000
 ```
 
-$PS_{Tax} = (`r ps_tax0.5`)$  
+$PS_{Tax} = `r ps_tax0.5`~Million~USD$   
 
 ####f. Environmental damage   
 
 ```{r, include=FALSE}
 
-tec_tax0.5 <- 2*q_tax0.5
+tec_tax0.5 <- (2*q_tax0.5)/1000000
 ```
 
-$TEC_{Tax} = (`r tec_tax0.5`)$  
+$TEC_{Tax} = `r tec_tax0.5`~Million~USD$    
 
 ####g. Tax revenue 
 
@@ -281,11 +286,11 @@ $TEC_{Tax} = (`r tec_tax0.5`)$
 # Revenue from taxes = (quantity with tax) * (price of the tax)
 
 # Calculate Revenue:
-tax0.5_rev <- q_tax0.5 * 0.50
+tax0.5_rev <- (q_tax0.5 * 0.50)/1000000
 
 ```
 
-$Tax~Revenue = (`r tax0.5_rev`)$  
+$Tax~Revenue = `r tax0.5_rev`~Million~USD$     
 
 ###4. Tax Revenues for Infrastructure Repairs
 
@@ -350,9 +355,11 @@ cost_high_tax <- q_high_tax * p_tax
 cs_high_tax <- (high_areas - cost_high_tax) + rev_highcon
 
 #Output information in table:
-cs_high_table <- as.data.frame(cbind(amt_tax, cs_high_tax)) 
+cs_high_table <- as.data.frame(cbind(amt_tax, cs_high_tax)) %>% 
+  mutate(cs_high_mil = cs_high_tax/1000000) %>% 
+  select(amt_tax, cs_high_mil)
 
-kable(cs_high_table, col.names = c("Tax Amount", "High Income Consumer Welfare"), digits = 2) %>% 
+kable(cs_high_table, col.names = c("Tax Amount", "High Income Consumer Welfare (Million USD)"), caption = "Table 1. High Income Consumer Welfare at Variable Gas Tax Amounts", digits = 4) %>% 
   kable_styling(bootstrap_options = c("striped", "condensed", "bordered"), full_width = FALSE)
 
 ```
@@ -384,9 +391,11 @@ cost_low_tax <- q_low_tax * p_tax
 cs_low_tax <- (low_areas - cost_low_tax) + rev_lowcon - tec_tax
 
 #Output information in table:
-cs_low_table <- as.data.frame(cbind(amt_tax, cs_low_tax)) 
+cs_low_table <- as.data.frame(cbind(amt_tax, cs_low_tax)) %>% 
+  mutate(cs_low_mil = cs_low_tax/1000000) %>% 
+  select(amt_tax, cs_low_mil)
 
-kable(cs_low_table, col.names = c("Tax Amount", "Low Income Consumer Welfare"), digits = 2) %>% 
+kable(cs_low_table, col.names = c("Tax Amount", "Low Income Consumer Welfare (Million USD)"), caption = "Table 2. Low Income Consumer Welfare at Variable Gas Tax Amounts", digits = 4) %>% 
   kable_styling(bootstrap_options = c("striped", "condensed", "bordered"), full_width = FALSE)
 
 ```
@@ -413,14 +422,22 @@ cost_tax <- q_tax * p_mpc_tax
 ps_tax <- cost_tax - prod_areas
 
 #Output information in table:
-ps_table <- as.data.frame(cbind(amt_tax, ps_tax)) 
+ps_table <- as.data.frame(cbind(amt_tax, ps_tax)) %>% 
+  mutate(ps_mil = ps_tax/1000000) %>% 
+  select(amt_tax, ps_mil)
 
-kable(ps_table, col.names = c("Tax Amount", "Producer Welfare")) %>% 
+kable(ps_table, col.names = c("Tax Amount", "Producer Welfare (Million USD)"), caption = "Table 3. Producer Welfare at Variable Gas Tax Amounts", digits = 4) %>% 
   kable_styling(bootstrap_options = c("striped", "condensed", "bordered"), full_width = FALSE)
 
 
 ```
 
+
+####Possible Revenues and Welfare Changes from Gas Tax:  
+**Assumptions**  
+ - Benefits from infrastructure repairs are proportional to amount driven  
+ - Low income consumers pay the entire environmental cost   
+ 
 ```{r, echo=FALSE}
 
 # Bind the baseline to the amount of tax, CS high, CS low, and PS into a dataframe:
@@ -441,17 +458,17 @@ taxes <- ggplot(tax_scenarios, aes(x = cs_high_tax, y = amt_tax)) +
 
 # Use percent change from the baseline
 tax_table <- tax_scenarios %>%
-  mutate(cs_high_change = (cs_high_tax-cs_high)/cs_high) %>% 
-  mutate(cs_low_change = (cs_low_tax-cs_low)/cs_low) %>% 
-  mutate(ps_change = (ps_tax-ps_total)/ps_total) %>% 
-  select(amt_tax, rev_tax,cs_low_change, cs_high_change, ps_change) %>% 
-  filter(amt_tax == 0.25 | amt_tax == 1.75 | amt_tax == 3.25 | amt_tax == 5.00)
+  mutate(cs_high_change = ((cs_high_tax-cs_high)/cs_high)*100) %>% 
+  mutate(cs_low_change = ((cs_low_tax-cs_low)/cs_low)*100) %>% 
+  mutate(ps_change = ((ps_tax-ps_total)/ps_total)*100) %>% 
+  mutate(rev_taxmil = rev_tax/1000000) %>% 
+  select(amt_tax, rev_taxmil,cs_low_change, cs_high_change, ps_change)
   
 
-taxtable_final <- kable(tax_table, col.names = c("Tax Amount (USD)", "Tax Revenue (USD)", "Welfare Change Low Income (%)", "Welfare Change High Income (%)", "Welfare Change Producers (%)"), digits = 3) %>% 
+taxtable_final <- kable(tax_table, col.names = c("Tax Amount (USD)", "Tax Revenue (Million USD)", "Welfare Change Low Income (%)", "Welfare Change High Income (%)", "Welfare Change Producers (%)"), caption = "Figure 4. Comparison of Revenue and Welfare Potential with Variable Gas Tax Amounts", digits = 4) %>% 
   kable_styling(bootstrap_options = c("striped", "bordered", "condensed"), full_width = F)
 
-
+taxtable_final
 
 
 ```
@@ -528,7 +545,7 @@ d_low_2(q_ev_low)
 ####d. Environmental Cost 
 
 ```{r, include=FALSE}
-env_cost_ev <- q_ev_agg*2
+env_cost_ev <- (q_ev_agg*2)/1000000
 ```
 
 ###6. Compare a 2.00 per gal tax to the influence of EV
@@ -544,7 +561,7 @@ q_tax2.0 <- ((agg_int/agg_slope)-2.0)/((1/agg_slope)+mpc_slope)
 
 #environmental damage
 
-env_cost_tax2 <- q_tax2.0*2
+env_cost_tax2 <- (q_tax2.0*2)/1000000
 
 ## put all the environmental damages to compare 
 
@@ -562,7 +579,7 @@ rownames(env_damage_table) <- c("Baseline", "$2.00 Gas Tax", "High EV Demand")
 
 #make it nice
 
-env_damage_final <- kable(env_damage_table, digits = 3) %>% 
+env_damage_final <- kable(env_damage_table, digits = 4) %>% 
   kable_styling(bootstrap_options = c("striped", "bordered", "condensed"), full_width = F)
 
 env_damage_final
