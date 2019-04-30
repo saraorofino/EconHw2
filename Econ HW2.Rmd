@@ -451,7 +451,7 @@ tax_table <- tax_scenarios %>%
 taxtable_final <- kable(tax_table, col.names = c("Tax Amount (USD)", "Tax Revenue (USD)", "Welfare Change Low Income (%)", "Welfare Change High Income (%)", "Welfare Change Producers (%)"), digits = 3) %>% 
   kable_styling(bootstrap_options = c("striped", "bordered", "condensed"), full_width = F)
 
-taxtable_final
+
 
 
 ```
@@ -533,7 +533,7 @@ env_cost_ev <- q_ev_agg*2
 
 ###6. Compare a 2.00 per gal tax to the influence of EV
 
-```{r, include=FALSE}
+```{r, echo=FALSE}
 # slope of MSC with a 2.00 tax
 mpc_tax2.0 <- function(q) {
   2.0 + mpc_slope*q
