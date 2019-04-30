@@ -529,12 +529,20 @@ q_ev_high <- int_h_2/(mpc_slope+q_high)
 q_ev_agg <- q_ev_high + q_ev_high
 ```
 
+Low Income Consumption:  
+$Q_{Low} = `r q_ev_low`$  
+
+High Income Consumption:  
+$Q_{High} = `r q_ev_high`$  
+
+Aggregate Consumption:  
+$Q_{Aggregate} = `r q_ev_agg`$  
+
 ####c. New price of gasoline with higher EV use and lower gas demand
 
 ```{r, include=FALSE}
 #plug agg price into demand agg function to find the price 
-
-d_agg_2p(q_ev_agg)
+p_ev <- d_agg_2p(q_ev_agg)
 
 #double check that this makes sense
 
@@ -542,11 +550,15 @@ d_high_2(q_ev_high)
 d_low_2(q_ev_low)
 ```
 
+$Price = `r p_ev`$
+
 ####d. Environmental Cost 
 
 ```{r, include=FALSE}
 env_cost_ev <- (q_ev_agg*2)/1000000
 ```
+
+$Environmental~Cost = `r env_cost_ev` ~Million~USD$  
 
 ###6. Compare a 2.00 per gal tax to the influence of EV
 
