@@ -2,7 +2,8 @@
 title: "Econ HW 2"
 author: "Maddie Berger & Sara Orofino"
 date: "4/25/2019"
-output: pdf_document
+output:
+  pdf_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -15,6 +16,7 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(janitor)
 library(RColorBrewer)
+library(kableExtra)
 
 #Read in data 
 demand <- read_csv("Gas_Data.csv")
@@ -426,6 +428,12 @@ tax_table <- tax_scenarios %>%
   select(amt_tax, rev_tax,cs_low_change, cs_high_change, ps_change) %>% 
   filter(amt_tax == 0.25 | amt_tax == 1.75 | amt_tax == 3.25 | amt_tax == 5.00)
   
+
+taxtable_final <- kable(tax_table, col.names = c("Tax Amount (USD)", "Tax Revenue (USD)", "Welfare Change Low Income (%)", "Welfare Change High Income (%)", "Welfare Change Producers (%)"), digits = 3) %>% 
+  kable_styling(bootstrap_options = c("striped", "bordered", "condensed"), full_width = F)
+
+taxtable_final
+
 
 ```
 
