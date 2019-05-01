@@ -41,6 +41,7 @@ q_high <- abs(demand_high$coefficients[2])
 int_l <- demand_low$coefficients[1]
 q_low <- abs(demand_low$coefficients[2])
 ```
+A linear regression on the data returned the intercept and slope for both the high and low demand groups
 
 High income demand curve:  
 $Price = `r int_h` - (`r q_high`)Q$ 
@@ -105,12 +106,15 @@ mec <- function(y) {
 q_shift <- ((agg_int/agg_slope) - int_h)/((1/agg_slope)-q_high)
 
 ```
+The demand curves for both groups were re-written to price as a function of quantity then added together to obtain the aggregate demand curve.
 
 Aggregate demand curve:   
 $Price = `r int_h - q_high`Q$ *if 0 <= Q <= 10802*   
 $Price = `r agg_int/agg_slope` - (`r 1/agg_slope`)Q$ *if Q > 10802*   
 
 ####b. Find the supply curve  
+
+Given the price of gasoline ($5) and the aggregate quantity consumed calculated above, the slope of the marginal private cost curve was derived and plotted with all other functions (below). 
 
 Supply curve:   
 $Price = (`r mpc_slope`)Q$   
@@ -119,14 +123,15 @@ $Price = (`r mpc_slope`)Q$
 #graphing the functions 
 
 ggplot(data.frame(x=c(70000:200000)), aes(x=x)) + 
-  stat_function(fun=d_high, geom ="line", color = "seagreen") + 
-  stat_function(fun=d_low, geom = "line", color = "goldenrod") +
-  stat_function(fun=mpc, geom = "line") +
-  stat_function(fun=mec, geom = "line", color = "red") +
-  stat_function(fun=d_agg, geom = "line", color = "blue")+
+  stat_function(fun=d_high, geom ="line", aes(color = "Demand High")) + 
+  stat_function(fun=d_low, geom = "line", aes(color = "Demand Low")) +
+  stat_function(fun=mpc, geom = "line", aes(color = "Marginal Private Cost")) +
+  stat_function(fun=mec, geom = "line", aes(color = "Environmental Cost")) +
+  stat_function(fun=d_agg, geom = "line", aes(color = "Aggregate Demand"))+
   labs(x = "Quantity of Gas", y = "Price")+
   scale_x_continuous(limits =c(0,500000), expand = c(0,0))+
   scale_y_continuous(limits=c(0,25), expand=c(0,0))+
+  scale_color_manual("Legend", values = c("seagreen", "goldenrod", "black","red", "blue"))+
   theme_bw()
 
 ```
@@ -163,7 +168,9 @@ mpc_area <- integrate(mpc, lower = 0, upper = q_sq)
 ps_total <- cost - mpc_area$value
 ps_total_mil <- ps_total/1000000
 ```
+Consumer surplus was calcualted by finding the area of the triangle bound by the line y = 5 (at the price of $5), the y axis and the aggregate demand curve
 
+Producer surplus was calculated by finding the area of the triangle bound by the marginal private cost curve, the y axis, and the line y = 5. 
 
 Consumers:      
 $CS = `r cs_total`~Million~USD$ 
@@ -178,7 +185,7 @@ $PS = `r ps_total_mil`~Million~USD$
 tec <- (2*q_sq)/1000000
   
 ```
-
+Total environmental cost was calculated by multiplying the quantity consumed at market equilibrium under the baseline scenario by 2, the marginal environmental cost. 
 
 $Environmental~Cost = `r tec`~Million~USD$ 
 
@@ -199,6 +206,8 @@ cost_low <- q_low_sq * 5
 cs_low <- fullarea_low$value - cost_low
 cs_low_mil <- cs_low/1000000
 ```
+
+Consumer surplus for each income group was calculated by finding the area of the triangles bound by each income group's demand curve, the line y = $5, and the y-axis.
 
 Consumer Surplus for High Income:    
 $CS_{High} = `r cs_high_mil`~Million~USD$ 
@@ -223,6 +232,7 @@ mpc_tax0.5 <- function(q) {
 # Find quantity where the MPC and aggregate demand intersect
 q_tax0.5 <- ((agg_int/agg_slope)-0.50)/((1/agg_slope)+mpc_slope)
 ```
+A 0.50 tax would shift the marginal private cost by $0.50 vertically. The new quantity consumed under this scenario was found by setting the new mpc cost curve equal to the aggregate demand, and solving for q. 
 
 $Q_{Tax} = `r q_tax0.5`$  
 
@@ -286,6 +296,7 @@ $TEC_{Tax} = `r tec_tax0.5`~Million~USD$
 
 ####g. Tax revenue 
 
+Tax revenue was calculated by multiplying the quantity consumed (in gallons) under this scenario by the tax, as the tax was applied per gallon of gasoline.  
 ```{r, include=FALSE}
 # Revenue from taxes = (quantity with tax) * (price with tax - equilibrium price)
 
@@ -297,6 +308,8 @@ $Tax~Revenue = `r tax0.5_rev`~Million~USD$
 
 \newpage 
 ###4. Tax Revenues for Infrastructure Repairs
+
+Tax revenues for infrastructure repairs are considered consumer surplus, as the consumers, aka the drivers, are the ones benefitting from the repairs. For this analysis, the amount of the tax revenue returned to each income group was calculated by assuming the benefit of improved infrastructure would be proportional to how much each group drives (in other words, their demand for gasoline).
 
 ```{r, include=FALSE}
 # If revenues are being used for infrastructure repairs that area becomes part of CS
@@ -522,6 +535,8 @@ d_agg_2p <- function(q) {
 ```
 
 ####a. & b. Gas consumption by High/Low income Consumers
+
+New demand curves for each group were derived by dividing the y intercepts by 2. These were then used to find a new aggregate demand curve. Setting the aggregate demand curve equal to the marginal private cost curve (with no tax) returned the new price of gasoline, which was then used to find the quantities consumed by each group. 
 ```{r, include=FALSE}
 # Find quantity where MPC and new agg demand intersect
 # Set agg demand equal to MPC to find new quantity
